@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You, Always</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Playfair+Display:ital,wght@0,400;1,500&family=Poppins:wght@300;400&display=swap');
+
+        :root {
+            --pink-glow: rgba(255, 182, 193, 0.2);
+            --glass: rgba(255, 255, 255, 0.05);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: radial-gradient(circle at center, #1a0505 0%, #000 100%);
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            text-align: center;
+        }
+
+        /* Falling Petals Animation */
+        .petal {
+            position: fixed;
+            background-color: #ffb6c1;
+            border-radius: 150% 0 150% 0;
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: 1;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.3; }
+            90% { opacity: 0.3; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+
+        .main-container {
+            position: relative;
+            z-index: 2;
+            width: 90%;
+            max-width: 500px;
+            padding: 40px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            font-weight: 400;
+            margin-bottom: 40px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            animation: fadeInDown 2s ease;
+            color: #ffdada;
+        }
+
+        /* The Bouquet Stage */
+        .bouquet-stage {
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .bouquet-img {
+            width: 280px;
+            height: auto;
+            filter: drop-shadow(0 0 30px rgba(255, 20, 147, 0.2));
+            animation: float 6s ease-in-out infinite;
+            cursor: pointer;
+            transition: transform 0.5s;
+        }
+
+        .bouquet-img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Labels - Optimized for Mobile */
+        .label {
+            position: absolute;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            z-index: 3;
+        }
+
+        .l1 { top: 0; left: -10px; }
+        .l2 { top: 20%; right: -10px; }
+        .l3 { bottom: 20%; left: -20px; }
+        .l4 { bottom: 5%; right: -15px; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* Secret Message Box */
+        .note-trigger {
+            margin-top: 20px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.4rem;
+            color: #ffb6c1;
+            cursor: pointer;
+            border-bottom: 1px dashed #ffb6c1;
+            padding-bottom: 5px;
+            animation: fadeIn 4s ease;
+        }
+
+        .secret-note {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            animation: slideUp 0.8s ease forwards;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .footer {
+            margin-top: auto;
+            padding: 40px 0;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.4rem;
+            opacity: 0.7;
+        }
+
+        .heart {
+            color: #ff4d6d;
+            display: inline-block;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* Media Queries for small screens */
+        @media (max-width: 400px) {
+            h1 { font-size: 1rem; }
+            .bouquet-img { width: 220px; }
+            .label { font-size: 0.65rem; padding: 6px 10px; }
+            .l1 { left: 0; }
+            .l2 { right: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        <h1>EVEN IF THE WORLD DOESN'T UNDERSTAND YOU,<br>I'LL ALWAYS BE HERE FOR YOU ✨</h1>
+
+        <div class="bouquet-stage">
+            <!-- Ensure your image is named flowers.png and in the same folder -->
+            <img src="flowers.png" alt="Rose Bouquet" class="bouquet-img" onclick="showNote()">
+
+            <!-- Labels -->
+            <div class="label l1">My favorite person</div>
+            <div class="label l2">Luckiest to have you</div>
+            <div class="label l3">Forever grateful</div>
+            <div class="label l4">You are my reason</div>
+        </div>
+
+        <div class="note-trigger" onclick="showNote()">Click to read a secret note...</div>
+        
+        <div id="secretNote" class="secret-note">
+            "I know things can be tough, and people might not always see the amazing person I see. But I want you to know that in my eyes, you are perfect. These flowers are just a small reminder that you are loved, today and every day."
+        </div>
+
+        <div class="footer">
+            I cant afford flowers yet, so i coded you some <span class="heart">❤️</span>
+        </div>
+    </div>
+
+    <script>
+        // Create falling petals
+        function createPetal() {
+            const petal = document.createElement('div');
+            petal.classList.add('petal');
+            petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.width = Math.random() * 15 + 10 + 'px';
+            petal.style.height = petal.style.width;
+            petal.style.animationDuration = Math.random() * 3 + 5 + 's';
+            document.body.appendChild(petal);
+
+            setTimeout(() => {
+                petal.remove();
+            }, 8000);
+        }
+
+        setInterval(createPetal, 300);
+
+        function showNote() {
+            const note = document.getElementById('secretNote');
+            note.style.display = 'block';
+            note.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+
+</body>
+</html>
